@@ -75,6 +75,28 @@ function nathalie_mota_enqueue_styles() {
         filemtime(get_template_directory() . '/assets/js/menu.js'),
         true
     );
+
+    // Footer
+    wp_enqueue_style(
+        'nathalie-mota-footer',
+        get_template_directory_uri() . '/assets/css/footer.css',
+        array('nathalie-mota-global'),
+        filemtime(get_template_directory() . '/assets/css/footer.css')
+    );
+
+    // Styles de la page d'accueil
+    if (is_front_page()) {
+        wp_enqueue_style(
+            'nathalie-mota-home',
+            get_template_directory_uri() . '/assets/css/home.css',
+            array('nathalie-mota-global'),
+            filemtime(get_template_directory() . '/assets/css/home.css')
+    );
+    }
 }
+/**
+ * Chargement du type de contenu Photos.
+ */
+require_once get_template_directory() . '/inc/photo-post-type.php';
 
 add_action('wp_enqueue_scripts', 'nathalie_mota_enqueue_styles');
