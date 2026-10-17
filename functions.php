@@ -38,7 +38,7 @@ function nathalie_mota_enqueue_styles() {
     // Polices Space Mono et Poppins
     wp_enqueue_style(
         'nathalie-mota-fonts',
-        'https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap',
         array(),
         null
     );
@@ -91,12 +91,24 @@ function nathalie_mota_enqueue_styles() {
             get_template_directory_uri() . '/assets/css/home.css',
             array('nathalie-mota-global'),
             filemtime(get_template_directory() . '/assets/css/home.css')
-    );
+        );
+        wp_enqueue_script(
+            'nathalie-mota-photo-filters',
+            get_template_directory_uri() . '/assets/js/photo-filters.js',
+            array(),
+            filemtime(get_template_directory() . '/assets/js/photo-filters.js'),
+            true
+        );
     }
 }
 /**
  * Chargement du type de contenu Photos.
  */
 require_once get_template_directory() . '/inc/photo-post-type.php';
+
+/**
+ * Champs personnalisés des photographies.
+ */
+require_once get_template_directory() . '/inc/photo-meta-boxes.php';
 
 add_action('wp_enqueue_scripts', 'nathalie_mota_enqueue_styles');
