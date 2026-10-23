@@ -99,6 +99,22 @@ function nathalie_mota_enqueue_styles() {
             filemtime(get_template_directory() . '/assets/js/photo-filters.js'),
             true
         );
+        wp_enqueue_script(
+            'nathalie-mota-photo-gallery',
+            get_template_directory_uri() . '/assets/js/photo-gallery.js',
+            array('nathalie-mota-photo-filters'),
+            filemtime(get_template_directory() . '/assets/js/photo-gallery.js'),
+            true
+        );
+        wp_add_inline_script(
+            'nathalie-mota-photo-gallery',
+            'window.nathalieMotaGallery = ' . wp_json_encode(array(
+                'apiUrl' => esc_url_raw(
+                    rest_url('nathalie-mota/v1/photos')
+                ),
+            )) . ';',
+            'before'
+        );
     }
 }
 /**
@@ -110,5 +126,10 @@ require_once get_template_directory() . '/inc/photo-post-type.php';
  * Champs personnalisés des photographies.
  */
 require_once get_template_directory() . '/inc/photo-meta-boxes.php';
+
+/**
+ * API REST du catalogue photographique.
+ */
+require_once get_template_directory() . '/inc/photo-rest-api.php';
 
 add_action('wp_enqueue_scripts', 'nathalie_mota_enqueue_styles');
