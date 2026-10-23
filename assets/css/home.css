@@ -288,3 +288,65 @@
         max-height: 230px;
     }
 }
+
+/* ========================================
+   GALERIE - BOUTON CHARGER PLUS
+======================================== */
+
+.photo-gallery__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.photo-gallery__load-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 272px;
+    height: 50px;
+    padding: 8px 15px;
+
+    border: 0;
+    border-radius: 2px;
+
+    background-color: #D8D8D8;
+    color: #000000;
+
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.photo-gallery__load-more:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.photo-gallery__load-more:focus-visible {
+    outline: 2px solid #000000;
+    outline-offset: 3px;
+}
+
+.photo-gallery__load-more:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.photo-gallery__load-more[hidden] {
+    display: none;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+    .photo-gallery__actions {
+        margin-top: 77px;
+    }
+}

@@ -196,6 +196,20 @@ get_header();
 
         <?php wp_reset_postdata(); ?>
 
+        
+        <!-- Bouton Charger plus -->
+        <div class="photo-gallery__actions">
+            <button
+                type="button"
+                id="photo-load-more"
+                class="photo-gallery__load-more"
+                <?php echo ($photos->max_num_pages <= 1) ? 'hidden' : ''; ?>
+            >
+                Charger plus
+            </button>
+        </div>
+
+
     </section>
 
 </main>

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const gallery = document.querySelector('.photo-gallery');
     const grid = gallery?.querySelector('.photo-grid');
+    const loadMoreButton = document.querySelector('#photo-load-more');
 
     if (!gallery || !grid || !window.nathalieMotaGallery?.apiUrl) {
         return;
@@ -14,10 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
         tri: 'DESC'
     };
 
+    let currentPage = 1;
+    let totalPages = 1;
     let activeRequest = null;
 
     /**
-     * Crée une carte photo sans injecter de HTML non fiable.
+     * Crée une carte photographique.
      */
     function createPhotoCard(photo) {
         const article = document.createElement('article');
@@ -54,11 +57,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     /**
-     * Charge les photos correspondant aux filtres.
+     * Met à jour la visibilité du bouton.
      */
-    async function loadPhotos() {
+    function updateLoadMoreButton() {
+        if (!loadMoreButton) {
+            return;
+        }
 
-        // Annule la requête précédente si nécessaire.
+        loadMoreButton.hidden = currentPage >= totalPages;
+    }
+
+    /**
+     * Charge une page de photographies.
+     *
+     * reset = true : remplace les photos après un changement
+     * de filtre.
+     *
+     * reset = false : ajoute les photos à la suite.
+     */
+    async function loadPhotos(reset = false) {
+
         if (activeRequest) {
             activeRequest.abort();
         }
@@ -66,14 +84,25 @@ document.addEventListener('DOMContentLoaded', function () {
         const controller = new AbortController();
         activeRequest = controller;
 
+        const requestedPage = reset ? 1 : currentPage + 1;
+
         const url = new URL(window.nathalieMotaGallery.apiUrl);
 
         url.searchParams.set('categorie', filters.categorie);
         url.searchParams.set('format', filters.format);
         url.searchParams.set('tri', filters.tri);
-        url.searchParams.set('page', '1');
+        url.searchParams.set('page', String(requestedPage));
 
         grid.setAttribute('aria-busy', 'true');
+
+        if (loadMoreButton) {
+            loadMoreButton.disabled = true;
+            loadMoreButton.textContent = 'Chargement...';
+
+            if (reset) {
+                loadMoreButton.hidden = true;
+            }
+        }
 
         try {
             const response = await fetch(url.toString(), {
@@ -90,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error('Réponse API invalide');
             }
 
-            if (data.photos.length === 0) {
-                showMessage('Aucune photographie ne correspond à votre recherche.');
+            // Ignore une réponse devenue obsolète.
+            if (activeRequest !== controller) {
                 return;
             }
 
@@ -101,7 +130,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 fragment.appendChild(createPhotoCard(photo));
             });
 
-            grid.replaceChildren(fragment);
+            if (reset) {
+                grid.replaceChildren(fragment);
+            } else {
+                grid.appendChild(fragment);
+            }
+
+            if (reset && data.photos.length === 0) {
+                showMessage(
+                    'Aucune photographie ne correspond à votre recherche.'
+                );
+            }
+
+            currentPage = requestedPage;
+            totalPages = Number(data.total_pages) || 0;
+
+            updateLoadMoreButton();
 
         } catch (error) {
 
@@ -109,21 +153,42 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            console.error('Erreur de chargement des photos :', error);
+            if (activeRequest !== controller) {
+                return;
+            }
 
-            showMessage('Impossible de charger les photographies.');
+            console.error(
+                'Erreur de chargement des photos :',
+                error
+            );
+
+            // En cas d'erreur, conserve les photos déjà présentes.
+            if (reset) {
+                showMessage('Impossible de charger les photographies.');
+            }
 
         } finally {
 
             if (activeRequest === controller) {
                 activeRequest = null;
                 grid.removeAttribute('aria-busy');
+
+                if (loadMoreButton) {
+                    loadMoreButton.disabled = false;
+                    loadMoreButton.textContent = 'Charger plus';
+
+                    // Réaffiche le bouton si un chargement a échoué
+                    // et qu'il reste des pages à récupérer.
+                    if (currentPage < totalPages) {
+                        loadMoreButton.hidden = false;
+                    }
+                }
             }
         }
     }
 
     /**
-     * Écoute les changements des menus personnalisés.
+     * Changement de catégorie, format ou tri.
      */
     gallery.addEventListener('photoFilterChange', function (event) {
 
@@ -135,7 +200,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
         filters[filter] = value || (filter === 'tri' ? 'DESC' : '');
 
-        loadPhotos();
+        loadPhotos(true);
     });
+
+    /**
+     * Chargement de huit photographies supplémentaires.
+     */
+    if (loadMoreButton) {
+        loadMoreButton.addEventListener('click', function () {
+
+            if (activeRequest || currentPage >= totalPages) {
+                return;
+            }
+
+            loadPhotos(false);
+        });
+    }
+
+    /**
+     * État initial : les huit premières photos sont déjà
+     * générées par WordPress dans front-page.php.
+     */
+    if (loadMoreButton) {
+        totalPages = loadMoreButton.hidden ? 1 : 2;
+    }
 
 });
