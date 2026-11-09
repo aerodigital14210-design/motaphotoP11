@@ -1,0 +1,176 @@
+
+/* ========================================
+   LIGHTBOX - NATHALIE MOTA
+======================================== */
+
+.photo-lightbox[hidden] {
+    display: none;
+}
+
+.photo-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #000000;
+    color: #FFFFFF;
+}
+
+.photo-lightbox__container {
+    position: relative;
+    width: min(978px, 100%);
+    height: min(857px, calc(100dvh - 40px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-lightbox__close {
+    position: absolute;
+    top: 35px;
+    right: 52px;
+    z-index: 2;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.photo-lightbox__close svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.photo-lightbox__figure {
+    width: min(564px, 60%);
+    margin: 0;
+}
+
+.photo-lightbox__image {
+    display: block;
+    width: 100%;
+    max-height: min(495px, 65dvh);
+    object-fit: contain;
+}
+
+.photo-lightbox__info {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 19px;
+    text-transform: uppercase;
+}
+
+.photo-lightbox__reference {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.photo-lightbox__category {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-align: right;
+}
+
+.photo-lightbox__prev,
+.photo-lightbox__next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #FFFFFF;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.photo-lightbox__prev {
+    left: 43px;
+}
+
+.photo-lightbox__next {
+    right: 52px;
+}
+
+.photo-lightbox__prev svg,
+.photo-lightbox__next svg {
+    width: 25px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.photo-lightbox button:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 5px;
+}
+
+/* ========================================
+   LIGHTBOX - MOBILE
+======================================== */
+
+@media (max-width: 767px) {
+
+    .photo-lightbox {
+        padding: 16px;
+    }
+
+    .photo-lightbox__container {
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .photo-lightbox__close {
+        top: 15px;
+        right: 10px;
+        width: 22px;
+        height: 22px;
+    }
+
+    .photo-lightbox__figure {
+        width: 100%;
+    }
+
+    .photo-lightbox__image {
+        max-height: 65dvh;
+    }
+
+    .photo-lightbox__info {
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .photo-lightbox__reference,
+    .photo-lightbox__category {
+        font-size: 11px;
+    }
+
+    .photo-lightbox__prev,
+    .photo-lightbox__next {
+        top: auto;
+        bottom: 35px;
+        transform: none;
+    }
+
+    .photo-lightbox__prev {
+        left: 0;
+    }
+
+    .photo-lightbox__next {
+        right: 0;
+    }
+}

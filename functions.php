@@ -106,8 +106,40 @@ function nathalie_mota_enqueue_styles() {
             filemtime(get_template_directory() . '/assets/js/photo-gallery.js'),
             true
         );
+    
+
+    }
+
+    
+    // Lightbox : accueil et fiches photographiques
+    if (is_front_page() || is_singular('photo')) {
+
+        wp_enqueue_style(
+            'nathalie-mota-lightbox',
+            get_template_directory_uri() . '/assets/css/lightbox.css',
+            array('nathalie-mota-global'),
+            filemtime(get_template_directory() . '/assets/css/lightbox.css')
+        );
+
+        wp_enqueue_script(
+            'nathalie-mota-lightbox',
+            get_template_directory_uri() . '/assets/js/lightbox.js',
+            array(),
+            filemtime(get_template_directory() . '/assets/js/lightbox.js'),
+            true
+        );
+        
+        wp_enqueue_script(
+            'nathalie-mota-lightbox',
+            get_template_directory_uri() . '/assets/js/lightbox.js',
+            array(),
+            filemtime(get_template_directory() . '/assets/js/lightbox.js'),
+            true
+        );
+
+        // URL de l'API REST pour la lightbox
         wp_add_inline_script(
-            'nathalie-mota-photo-gallery',
+            'nathalie-mota-lightbox',
             'window.nathalieMotaGallery = ' . wp_json_encode(array(
                 'apiUrl' => esc_url_raw(
                     rest_url('nathalie-mota/v1/photos')
@@ -115,7 +147,36 @@ function nathalie_mota_enqueue_styles() {
             )) . ';',
             'before'
         );
+
     }
+
+
+    
+    
+// Styles de la page individuelle d'une photographie
+    if (is_singular('photo')) {
+
+        // Réutilisation des styles des cartes photographiques
+        wp_enqueue_style(
+            'nathalie-mota-home',
+            get_template_directory_uri() . '/assets/css/home.css',
+            array('nathalie-mota-global'),
+            filemtime(
+                get_template_directory() . '/assets/css/home.css'
+            )
+        );
+
+        wp_enqueue_style(
+            'nathalie-mota-single-photo',
+            get_template_directory_uri() . '/assets/css/single-photo.css',
+            array('nathalie-mota-home'),
+            filemtime(
+                get_template_directory() . '/assets/css/single-photo.css'
+            )
+        );
+    }
+
+
 }
 /**
  * Chargement du type de contenu Photos.

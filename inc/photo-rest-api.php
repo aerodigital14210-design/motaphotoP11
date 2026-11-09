@@ -106,8 +106,29 @@ function nathalie_mota_get_filtered_photos(WP_REST_Request $request) {
     while ($query->have_posts()) {
         $query->the_post();
 
+        
         $photo_id = get_the_ID();
 
+        // Référence de la photographie.
+        $reference = get_post_meta(
+            $photo_id,
+            '_photo_reference',
+            true
+        );
+
+        // Catégorie de la photographie.
+        $categories = get_the_terms(
+            $photo_id,
+            'categorie'
+        );
+
+        $category_name = '';
+
+        if (!is_wp_error($categories) && !empty($categories)) {
+            $category_name = $categories[0]->name;
+        }
+
+        // Données renvoyées à la galerie.
         $photos[] = array(
             'id'        => $photo_id,
             'title'     => get_the_title(),
@@ -118,7 +139,10 @@ function nathalie_mota_get_filtered_photos(WP_REST_Request $request) {
                 '_wp_attachment_image_alt',
                 true
             ),
+            'reference' => $reference,
+            'category'  => $category_name,
         );
+
     }
 
     wp_reset_postdata();

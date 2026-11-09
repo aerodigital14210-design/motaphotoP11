@@ -165,22 +165,9 @@ get_header();
 
                 <?php while ($photos->have_posts()) : $photos->the_post(); ?>
 
-                    <article class="photo-card">
+                    
+                    <?php get_template_part('template-parts/photo-card'); ?>
 
-                        <a href="<?php the_permalink(); ?>" class="photo-card__link">
-
-                            <?php
-                            if (has_post_thumbnail()) {
-                                the_post_thumbnail('large', array(
-                                    'class'   => 'photo-card__image',
-                                    'loading' => 'lazy',
-                                ));
-                            }
-                            ?>
-
-                        </a>
-
-                    </article>
 
                 <?php endwhile; ?>
 
@@ -213,5 +200,8 @@ get_header();
     </section>
 
 </main>
+
+<!-- Lightbox des photographies -->
+<?php get_template_part('template-parts/photo-lightbox'); ?>
 
 <?php get_footer(); ?>

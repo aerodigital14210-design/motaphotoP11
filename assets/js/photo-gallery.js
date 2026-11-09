@@ -22,14 +22,13 @@ document.addEventListener('DOMContentLoaded', function () {
     /**
      * Crée une carte photographique.
      */
+    
     function createPhotoCard(photo) {
+
         const article = document.createElement('article');
         article.className = 'photo-card';
 
-        const link = document.createElement('a');
-        link.className = 'photo-card__link';
-        link.href = photo.permalink;
-
+        // Photographie
         if (photo.image) {
             const image = document.createElement('img');
             image.className = 'photo-card__image';
@@ -37,13 +36,80 @@ document.addEventListener('DOMContentLoaded', function () {
             image.alt = photo.alt || photo.title || '';
             image.loading = 'lazy';
 
-            link.appendChild(image);
+            article.appendChild(image);
         }
 
-        article.appendChild(link);
+        // Voile au survol
+        const overlay = document.createElement('div');
+        overlay.className = 'photo-card__overlay';
+
+        // Bouton plein écran
+        const fullscreen = document.createElement('button');
+        fullscreen.type = 'button';
+        fullscreen.className = 'photo-card__fullscreen';
+        fullscreen.dataset.photoId = String(photo.id);
+        fullscreen.setAttribute(
+            'aria-label',
+            'Afficher en plein écran : ' + (photo.title || 'Photographie')
+        );
+
+        fullscreen.innerHTML = `
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+        `;
+
+        // Lien vers la page individuelle
+        const eye = document.createElement('a');
+        eye.className = 'photo-card__eye';
+        eye.href = photo.permalink;
+        eye.setAttribute(
+            'aria-label',
+            'Voir la photographie : ' + (photo.title || 'Photographie')
+        );
+
+        eye.innerHTML = `
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="3"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+            </svg>
+        `;
+
+        // Référence et catégorie
+        const info = document.createElement('div');
+        info.className = 'photo-card__info';
+
+        const reference = document.createElement('span');
+        reference.className = 'photo-card__reference';
+        reference.textContent = photo.reference || '';
+
+        const category = document.createElement('span');
+        category.className = 'photo-card__category';
+        category.textContent = photo.category || '';
+
+        info.appendChild(reference);
+        info.appendChild(category);
+
+        overlay.appendChild(fullscreen);
+        overlay.appendChild(eye);
+        overlay.appendChild(info);
+
+        article.appendChild(overlay);
 
         return article;
     }
+
 
     /**
      * Affiche un message dans la galerie.

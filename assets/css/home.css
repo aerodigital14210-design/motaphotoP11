@@ -350,3 +350,148 @@
         margin-top: 77px;
     }
 }
+
+/* ========================================
+   CARTES PHOTOS - SURVOL FIGMA
+======================================== */
+
+.photo-card__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background-color: rgba(0, 0, 0, 0.6);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 300ms ease-out,
+        visibility 300ms ease-out;
+}
+
+.photo-card:hover .photo-card__overlay,
+.photo-card:focus-within .photo-card__overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Icônes communes */
+
+.photo-card__fullscreen,
+.photo-card__eye {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+/* Icône plein écran */
+.photo-card__fullscreen svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+/* Icône œil */
+.photo-card__eye svg {
+    display: block;
+    width: 46px;
+    height: 31.2px;
+}
+
+/* Plein écran - en haut à droite */
+
+.photo-card__fullscreen {
+    top: 20px;
+    right: 20px;
+
+    width: 36px;
+    height: 36px;
+
+    padding: 6px;
+    border: 0;
+    border-radius: 50%;
+
+    background-color: #000000;
+}
+
+/* Œil - parfaitement centré */
+
+.photo-card__eye {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 46px;
+    height: 31.2px;
+
+    text-decoration: none;
+}
+
+/* Informations - en bas */
+
+.photo-card__info {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.photo-card__reference,
+.photo-card__category {
+    min-width: 0;
+}
+
+.photo-card__category {
+    text-align: right;
+    text-transform: uppercase;
+}
+
+/* Accessibilité clavier */
+
+.photo-card__fullscreen:focus-visible,
+.photo-card__eye:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 4px;
+}
+
+/* Adaptation mobile */
+
+@media (max-width: 767px) {
+
+    .photo-card__fullscreen {
+        top: 12px;
+        right: 12px;
+    }
+
+    .photo-card__info {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        font-size: 12px;
+    }
+
+}
+
+/* Respect des préférences d'animation */
+
+@media (prefers-reduced-motion: reduce) {
+    .photo-card__overlay {
+        transition: none;
+    }
+}
