@@ -84,6 +84,23 @@ function nathalie_mota_enqueue_styles() {
         filemtime(get_template_directory() . '/assets/css/footer.css')
     );
 
+    // Styles de la modale de contact
+    wp_enqueue_style(
+        'nathalie-mota-contact-modal',
+        get_template_directory_uri() . '/assets/css/contact-modal.css',
+        array('nathalie-mota-global'),
+        filemtime(get_template_directory() . '/assets/css/contact-modal.css')
+    );
+    
+    // Gestion de la modale de contact
+        wp_enqueue_script(
+            'nathalie-mota-contact-modal',
+            get_template_directory_uri() . '/assets/js/contact-modal.js',
+            array(),
+            filemtime(get_template_directory() . '/assets/js/contact-modal.js'),
+            true
+        );
+
     // Styles de la page d'accueil
     if (is_front_page()) {
         wp_enqueue_style(
@@ -106,7 +123,6 @@ function nathalie_mota_enqueue_styles() {
             filemtime(get_template_directory() . '/assets/js/photo-gallery.js'),
             true
         );
-    
 
     }
 

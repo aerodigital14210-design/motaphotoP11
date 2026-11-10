@@ -133,16 +133,99 @@
     line-height: 1;
     letter-spacing: 0;
     cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .single-photo__contact-button:hover {
-    background: #C4C4C4;
+    background-color: #000000;
+    color: #FFFFFF;
 }
 
 .single-photo__contact-button:focus-visible {
     outline: 2px solid #000;
     outline-offset: 3px;
 }
+
+
+/* ==========================================
+   NAVIGATION ENTRE PHOTOGRAPHIES
+========================================== */
+
+.single-photo__navigation {
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+    width: 81px;
+    height: 95px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+/* Miniature : dimensions exactes Figma */
+
+.single-photo__navigation-preview {
+    width: 81px;
+    height: 71px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.single-photo__navigation-preview-image {
+    display: block;
+    width: 81px;
+    height: 71px;
+    max-width: none;
+    object-fit: cover;
+}
+
+.single-photo__navigation-arrows {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 81px;
+    height: 12px;
+}
+
+.single-photo__navigation-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 12px;
+    color: #000;
+    text-decoration: none;
+}
+
+/* Flèches de navigation : images PNG */
+
+.single-photo__navigation-link span {
+    display: block;
+    width: 25px;
+    height: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25px auto;
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Flèche gauche */
+.single-photo__navigation-link--previous span {
+    background-image: url("../images/fleche gauche.png");
+}
+
+/* Flèche droite */
+.single-photo__navigation-link--next span {
+    background-image: url("../images/fleche droite.png");
+}
+
+.single-photo__navigation-link--disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
 
 /* ==========================================
    TABLETTE / PETIT DESKTOP : 768 A 1190px
@@ -189,6 +272,11 @@
 ========================================== */
 
 @media (max-width: 767px) {
+
+        .single-photo__navigation {
+        display: none;
+    }
+
     .single-photo__main {
         display: flex;
         flex-direction: column;

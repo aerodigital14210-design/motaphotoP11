@@ -1,0 +1,174 @@
+
+/* =========================================
+   MODALE CONTACT - NATHALIE MOTA
+========================================= */
+
+.contact-modal[hidden] {
+    display: none !important;
+}
+
+.contact-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+}
+
+.contact-modal__overlay {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contact-modal__content {
+    position: relative;
+    width: 593px;
+    max-width: 100%;
+    max-height: 95vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #fff;
+    padding: 0 0 31px;
+}
+
+/* Bouton fermeture */
+.contact-modal__close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    z-index: 2;
+    border: 0;
+    background: transparent;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+
+/* Bandeau CONTACT */
+.contact-modal__header {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.contact-modal__header-image {
+    display: block;
+    width: 885.96px;
+    max-width: none;
+    height: 106.05px;
+    margin-left: -141.49px;
+}
+
+@media (max-width: 600px) {
+    .contact-modal__header-image {
+        width: 459.49px;
+        height: 55px;
+        margin-left: -87px;
+    }
+}
+
+/* Formulaire */
+.contact-modal__form {
+    width: 263px;
+    margin: 170px auto 0;
+}
+
+.contact-modal .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.contact-modal .contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+
+.contact-modal .wpcf7-form-control-wrap {
+    display: block;
+    margin-bottom: 24px;
+}
+
+.contact-modal input[type="text"],
+.contact-modal input[type="email"],
+.contact-modal textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #B8BBC2;
+    border-radius: 8px;
+    background: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    padding: 8px 12px;
+}
+
+.contact-modal input[type="text"],
+.contact-modal input[type="email"] {
+    height: 40px;
+}
+
+.contact-modal textarea {
+    height: 210px;
+    resize: vertical;
+}
+
+.contact-modal input[type="submit"] {
+    display: block;
+    width: 100%;
+    height: 50px;
+    border: 0;
+    border-radius: 2px;
+    background: #D8D8D8;
+    font-family: "Space Mono", monospace;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+
+.contact-modal input[type="submit"]:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+    .contact-modal {
+        padding: 12px;
+    }
+
+    .contact-modal__content {
+        width: 286px;
+        max-height: 95vh;
+        padding-bottom: 20px;
+    }
+
+    .contact-modal__form {
+        width: 190px;
+        margin-top: 87px;
+    }
+
+    .contact-modal .wpcf7-form-control-wrap {
+        margin-bottom: 14px;
+    }
+
+    .contact-modal textarea {
+        height: 149px;
+    }
+}

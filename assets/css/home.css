@@ -242,13 +242,17 @@
     cursor: pointer;
 }
 
-.photo-filter__option:hover {
-    background: #F5F5F5;
+
+.photo-filter__option {
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.photo-filter__option:hover,
 .photo-filter__option[aria-pressed="true"] {
-    background: #F5F5F5;
+    background-color: #E60000;
+    color: #FFFFFF;
 }
+
 
 /* ========================================
    FILTRES DU CATALOGUE - MOBILE
