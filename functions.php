@@ -91,7 +91,7 @@ function nathalie_mota_enqueue_styles() {
         array('nathalie-mota-global'),
         filemtime(get_template_directory() . '/assets/css/contact-modal.css')
     );
-    
+
     // Gestion de la modale de contact
         wp_enqueue_script(
             'nathalie-mota-contact-modal',
@@ -145,14 +145,7 @@ function nathalie_mota_enqueue_styles() {
             true
         );
         
-        wp_enqueue_script(
-            'nathalie-mota-lightbox',
-            get_template_directory_uri() . '/assets/js/lightbox.js',
-            array(),
-            filemtime(get_template_directory() . '/assets/js/lightbox.js'),
-            true
-        );
-
+        
         // URL de l'API REST pour la lightbox
         wp_add_inline_script(
             'nathalie-mota-lightbox',

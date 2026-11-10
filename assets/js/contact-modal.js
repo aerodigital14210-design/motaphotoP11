@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (
             !modal.hidden &&
-            event.target === modal
+            !event.target.closest('.contact-modal__content') &&
+            modal.contains(event.target)
         ) {
             closeModal();
         }

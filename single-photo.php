@@ -14,7 +14,11 @@ if (have_posts()) :
 
         $photo_id = get_the_ID();
 
-
+        $reference = get_post_meta(
+            $photo_id,
+            '_photo_reference',
+            true
+        );
         
         // Navigation selon le numéro du fichier image.
         $photo_navigation = get_posts(array(

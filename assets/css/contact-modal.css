@@ -35,15 +35,33 @@
     padding: 0 0 31px;
 }
 
-/* Bouton fermeture */
+/* Bouton de fermeture accessible au clavier */
 .contact-modal__close {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.contact-modal__close:focus-visible {
     position: absolute;
     top: 8px;
     right: 12px;
-    z-index: 2;
-    border: 0;
-    background: transparent;
-    font-size: 26px;
+    z-index: 10;
+    width: auto;
+    height: auto;
+    padding: 6px 12px;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    background: #fff;
+    color: #000;
+    outline: 2px solid #000;
     cursor: pointer;
 }
 
