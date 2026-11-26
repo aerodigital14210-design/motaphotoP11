@@ -54,32 +54,15 @@
             id="primary-navigation"
             aria-label="Navigation principale"
         >
-            <ul>
-                <li>
-                    <a href="<?php echo esc_url(
-                        home_url('/')
-                    ); ?>">
-                        Accueil
-                    </a>
-                </li>
-
-                <li>
-                    <a href="<?php echo esc_url(
-                        home_url('/a-propos/')
-                    ); ?>">
-                        À propos
-                    </a>
-                </li>
-
-                <li>
-                    <button
-                        type="button"
-                        class="open-contact-modal"
-                    >
-                        Contact
-                    </button>
-                </li>
-            </ul>
+            <?php
+            wp_nav_menu(array(
+                'theme_location' => 'primary',
+                'container'      => false,
+                'menu_class'     => 'primary-menu',
+                'fallback_cb'    => false,
+                'depth'          => 1,
+            ));
+            ?>
         </nav>
 
     </div>
